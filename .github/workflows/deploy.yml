@@ -1,18 +1,26 @@
-name: Check Prometheus Status
+name: Deploy Monitoring Stack
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
-  check-status:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Executing remote ssh commands
+      - name: Copy files to Yandex Cloud
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: denis
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "."
+          target: "/home/denis/monitoring"
+
+      - name: Run Docker Compose
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VM_HOST }}
