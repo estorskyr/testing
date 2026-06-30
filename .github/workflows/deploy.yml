@@ -19,8 +19,9 @@ jobs:
           username: denis
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            echo "=== Статус сервиса Prometheus ==="
-            systemctl status prometheus --no-pager
-
-            echo "=== Открытые порты ==="
-            ss -tuln | grep 9090
+          cd /home/denis/monitoring
+          sudo docker compose up -d --build
+          echo "=== Проверка статуса контейнеров ==="
+          sudo docker compose ps
+          echo "=== Проверка портов ==="
+          sudo ss -tulpn | grep 9090
