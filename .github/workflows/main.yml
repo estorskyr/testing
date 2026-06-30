@@ -1,0 +1,26 @@
+name: Check Prometheus Status
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  check-status:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Executing remote ssh commands
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: denis
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          scripts: |
+            echo "=== Статус сервиса Prometheus ==="
+            systemctl status prometheus --no-pager
+
+            echo "=== Открытые порты ==="
+            ss -tuln | grep 9090
