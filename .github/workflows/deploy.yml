@@ -11,6 +11,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Inject secrets into Alertmanager config
+        run:
+          sed -i "s/PLACEHOLDER_TOKEN/${{ secrets.TELEGRAM_BOT_TOKEN }}/g" alertmanager.yml
+          sed -i "s/PLACEHOLDER_CHAT_ID/${{ secrets.TELEGRAM_CHAT_ID }}/g" alertmanager.yml
+
       - name: Copy files to Yandex Cloud
         uses: appleboy/scp-action@v0.1.7
         with:
