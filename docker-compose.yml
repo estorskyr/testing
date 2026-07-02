@@ -24,7 +24,7 @@ services:
 
   alertmanager:
     image: prom/alertmanager:v0.27.0
-    conatainer_name: alertmanager
+    container_name: alertmanager
     restart: unless-stopped
     ports:
       - "9093:9093"
