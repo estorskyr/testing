@@ -1,0 +1,9 @@
+route:
+  receiver: 'telegram_bot'
+
+receiver:
+- name: 'telegram_bot'
+  telegram_configs:
+  - bot_token: 'PLACEHOLDER_TOKEN'
+    chat_id: int(PLACEHOLDER_CHAT_ID)
+    send_resolved: true

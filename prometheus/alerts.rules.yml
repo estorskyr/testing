@@ -1,0 +1,11 @@
+groups:
+  - name: base_alerts
+    rules:
+      - alert: InstanceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "The {{ $labels.instance }} server is unvailable"
+          description: "Prometheus can't take metrics from {{ $labels.instance }} more than 1 minute"
