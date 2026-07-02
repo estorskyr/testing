@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Inject secrets into Alertmanager config
-        run:
+        run: |
           sed -i "s/PLACEHOLDER_TOKEN/${{ secrets.TELEGRAM_BOT_TOKEN }}/g" alertmanager.yml
           sed -i "s/PLACEHOLDER_CHAT_ID/${{ secrets.TELEGRAM_CHAT_ID }}/g" alertmanager.yml
 
